@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People in the Universe Star Wars</title>
+    <link rel="stylesheet" href="./assets/css/people.css">
+</head>
+<body>
+    <h1>List of People</h1>
+    <div class="container" id="people-container"></div>
+    <div class="pagination">
+        <button id="prev">PREVIOUS</button>
+        <button id="next">NEXT</button>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const container = document.getElementById("people-container");
+        const prevButton = document.getElementById("prev");
+        const nextButton = document.getElementById("next");
+
+        async function getPeople(page) {
+            try {
+                container.innerHTML = "Loading...";
+                const response = await fetch(`https://swapi.dev/api/people/?page=${page}`);
+                const data = await response.json();
+                container.innerHTML = "";
+
+                data.results.forEach((people) => {
+                const card = document.createElement("div");
+                card.className = "card";
+                const id = people.url.match(/\/(\d+)\/$/)[1];
+                card.innerHTML = `
+                <p><strong>Name:</strong> ${people.name}</p>
+                <p><strong>Gender:</strong> ${people.gender}</p>
+            `;
+
+            card.addEventListener("click", () => {
+                window.location.href = `people_details.html?id=${id}`;
+            });
+
+            container.appendChild(card);
+        });
+
+        prevButton.disabled = !data.previous;
+        nextButton.disabled = !data.next;
+    } catch (error) {
+        console.error("Error loading people", error);
+        container.innerHTML = "Error loading people";
+    }
+}
+
+
+        prevButton.addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage -= 1;
+                getPeople(currentPage);
+            }
+        });
+        nextButton.addEventListener("click", () => {
+            currentPage += 1;
+            getPeople(currentPage);
+        });
+
+        document.addEventListener("DOMContentLoaded", () => getPeople(currentPage));
+    </script>
+</body>
+</html>
