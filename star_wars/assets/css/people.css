@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Stardos+Stencil:wght@400;700&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: "PT Serif", serif;
     text-align: center;
     background-color: #282c34;
     color: #fff;

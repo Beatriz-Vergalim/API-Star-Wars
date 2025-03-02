@@ -7,15 +7,20 @@
     <link rel="stylesheet" href="./assets/css/people_details.css">
 </head>
 <body>
-    <h1>People Details</h1>
+    <h1>Person Details</h1>
     <div class="container" id="people-details"></div>
     <button id="back">BACK</button>
 
     <script>
+
+        /* card detalhado da pessoa selecionada */
+
         const params = new URLSearchParams(window.location.search);
         let peopleId = parseInt(params.get("id")) || 1;
         const container = document.getElementById("people-details");
         const backButton = document.getElementById("back");
+
+        /* requisição da API para as informações que estão no card */
 
         async function getPeople(id) {
             try {
@@ -41,9 +46,14 @@
             }
         }
 
+        /* botão utilizável */
+
         backButton.addEventListener("click", () => {
             window.history.back();
         });
+
+        /*linha de código para que não haja erros no carregamento da página
+        (evita que as informações tentem ser exibidas antes do HTML carregar) */ 
 
         document.addEventListener("DOMContentLoaded", () => getPeople(peopleId));
     </script>

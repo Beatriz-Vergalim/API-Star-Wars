@@ -11,14 +11,21 @@
     <div class="container" id="people-container"></div>
     <div class="pagination">
         <button id="prev">PREVIOUS</button>
+        <button id="back">BACK</button>
         <button id="next">NEXT</button>
     </div>
 
     <script>
+
+        /* paginação */
+
         let currentPage = 1;
         const container = document.getElementById("people-container");
         const prevButton = document.getElementById("prev");
+        const backButton = document.getElementById("back");
         const nextButton = document.getElementById("next");
+
+        /* requisição da API para as informações que estão no card */
 
         async function getPeople(page) {
             try {
@@ -36,12 +43,16 @@
                 <p><strong>Gender:</strong> ${people.gender}</p>
             `;
 
+        /* redirecionamento da página para ir aos detalhes */
+
             card.addEventListener("click", () => {
                 window.location.href = `people_details.html?id=${id}`;
             });
 
             container.appendChild(card);
         });
+
+        /* botões caso sejam inutilizáveis (erro ao carregar ou final de página) */
 
         prevButton.disabled = !data.previous;
         nextButton.disabled = !data.next;
@@ -51,6 +62,7 @@
     }
 }
 
+        /* botões utilizáveis */
 
         prevButton.addEventListener("click", () => {
             if (currentPage > 1) {
@@ -58,10 +70,16 @@
                 getPeople(currentPage);
             }
         });
+        backButton.addEventListener("click", () => {
+            window.history.back();
+        });
         nextButton.addEventListener("click", () => {
             currentPage += 1;
             getPeople(currentPage);
         });
+
+        /*linha de código para que não haja erros no carregamento da página
+        (evita que as informações tentem ser exibidas antes do HTML carregar) */ 
 
         document.addEventListener("DOMContentLoaded", () => getPeople(currentPage));
     </script>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planet Details</title>
+    <link rel="stylesheet" href="./assets/css/planet_details.css">
+</head>
+<body>
+    <h1>Planet Details</h1>
+    <div class="container" id="planet-container"></div>
+    <button id="back">BACK</button>
+
+    <script>
+        /* xard detalhado do planeta selecionado*/
+        const params = new URLSearchParams(window.location.search);
+        let planetId = perseInt(params.get("id")) || 1;
+        const container = document.getElementById("planet-details");
+        const backButton = document.getElementById("back");
+    </script>
+</body>
+</html>
