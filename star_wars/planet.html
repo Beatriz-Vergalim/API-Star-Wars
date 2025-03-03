@@ -36,17 +36,15 @@
                 data.results.forEach(planet => {
                     const card = document.createElement("div");
                     card.className = "card";
+                    const id = planet.url.match(/\/(\d+)\/$/)[1];
                     card.innerHTML = `
                         <p><strong>Name:</strong> ${planet.name}</p>
-                        <p><strong>Rotation Period:</strong> ${planet.rotation_period}</p>
-                        <p><strong>Orbital Period:</strong> ${planet.orbital_period}</p>
-                        <p><strong>Diameter:</strong> ${planet.diameter}</p>
-                        <p><strong>Climate:</strong> ${planet.climate}</p>
-                        <p><strong>Gravity:</strong> ${planet.gravity}</p>
                         <p><strong>Terrain::</strong> ${planet.terrain}</p>
-                        <p><strong>Surface Water:</strong> ${planet.surface_water}</p>
                         <p><strong>Population:</strong> ${planet.population}</p>
                     `;
+                    card.addEventListener("click", () => {
+                        window.location.href = `planet_details.html?id=${id}`;
+                    });
                     container.appendChild(card);
                 });
 

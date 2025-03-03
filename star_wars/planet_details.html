@@ -12,11 +12,42 @@
     <button id="back">BACK</button>
 
     <script>
-        /* xard detalhado do planeta selecionado*/
+        /* Card detalhado do planeta selecionado */
         const params = new URLSearchParams(window.location.search);
-        let planetId = perseInt(params.get("id")) || 1;
-        const container = document.getElementById("planet-details");
+        let planetId = parseInt(params.get("id")) || 1;
+        const container = document.getElementById("planet-container");
         const backButton = document.getElementById("back");
+
+        async function getPlanet(id) {
+            try {
+                container.innerHTML = "Loading...";
+                const response = await fetch(`https://swapi.dev/api/planets/${id}/`);
+                if (!response.ok) {
+                    throw new Error("Planet not found");
+                }
+                const planet = await response.json();
+                container.innerHTML = `
+                    <p><strong>Name:</strong> ${planet.name}</p>
+                    <p><strong>Rotation Period:</strong> ${planet.rotation_period}</p>
+                    <p><strong>Orbital Period:</strong> ${planet.orbital_period}</p>
+                    <p><strong>Diameter:</strong> ${planet.diameter}</p>
+                    <p><strong>Climate:</strong> ${planet.climate}</p>
+                    <p><strong>Gravity:</strong> ${planet.gravity}</p>
+                    <p><strong>Terrain:</strong> ${planet.terrain}</p>
+                    <p><strong>Surface Water:</strong> ${planet.surface_water}</p>
+                    <p><strong>Population:</strong> ${planet.population}</p>
+                `;
+            } catch (error) {
+                console.error("Error loading planet", error);
+                container.innerHTML = "Error loading planet";
+            }
+        }
+
+        backButton.addEventListener("click", () => {
+            window.history.back();
+        });
+
+        document.addEventListener("DOMContentLoaded", () => getPlanet(planetId));
     </script>
 </body>
 </html>
